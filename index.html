@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gmail Search Redirect</title>
+  <script>
+    window.onload = function() {
+      const params = new URLSearchParams(window.location.search);
+      const query = params.get('q');
+      if(query) {
+        const gmailSearchUrl = 'https://mail.google.com/mail/u/0/#search/' + encodeURIComponent(query);
+        document.body.innerHTML = `<p>Redirecting to Gmail search for <strong>${query}</strong>...</p><p><a href="${gmailSearchUrl}">Click here if not redirected</a></p>`;
+        setTimeout(() => window.location.href = gmailSearchUrl, 1000);
+      } else {
+        document.body.innerHTML = '<p>No search query provided.</p>';
+      }
+    }
+  </script>
+</head>
+<body>
+</body>
+</html>
