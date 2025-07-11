@@ -12,7 +12,8 @@
       }
       
       // Check if this is a label search by looking for the pattern: number.text/text
-      const isLabelSearch = /^\d+\.\s*\w+.*%2F.*/.test(query);
+      // The query comes in as "1.+Cold%2FDan+Koe" so we check for digit.+text%2Ftext
+      const isLabelSearch = /^\d+\.\+.*%2F.*/.test(query);
       
       const encodedQuery = encodeURIComponent(query);
       
