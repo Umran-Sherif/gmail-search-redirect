@@ -10,46 +10,24 @@
         document.body.innerHTML = '<p>No search query provided.</p>';
         return;
       }
-      
-      // Check if this is a label search by looking for the pattern: number.text/text
-      // The query comes in as "1.+Cold%2FDan+Koe" so we check for digit.+text%2Ftext
-      const isLabelSearch = /^\d+\.\+.*%2F.*/.test(query);
-      
       const encodedQuery = encodeURIComponent(query);
-      
-      // Simple mobile detection
+      // Simple mobile detection (can be improved if needed)
       const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      
       let redirectUrl;
-      let searchType;
-      
-      if (isLabelSearch) {
-        // This is a label search
-        searchType = 'label';
-        if (isMobile) {
-          // Mobile Gmail label URL format
-          redirectUrl = `https://mail.google.com/mail/mu/mp/954/#tl/label/${encodedQuery}`;
-        } else {
-          // Desktop Gmail label URL
-          redirectUrl = `https://mail.google.com/mail/u/0/#label/${encodedQuery}`;
-        }
+      if (isMobile) {
+        // Mobile Gmail search URL format
+        // Your example was: https://mail.google.com/mail/mu/mp/954/#tl/search/reysuYT%40gmail.com
+        // The number (e.g., 954) seems dynamic but we'll keep a default
+        // Replace with 954 as a constant or remove? We'll keep 954 as in example
+        redirectUrl = https://mail.google.com/mail/mu/mp/954/#tl/search/${encodedQuery};
       } else {
-        // This is a regular search
-        searchType = 'search';
-        if (isMobile) {
-          // Mobile Gmail search URL format
-          redirectUrl = `https://mail.google.com/mail/mu/mp/954/#tl/search/${encodedQuery}`;
-        } else {
-          // Desktop Gmail search URL
-          redirectUrl = `https://mail.google.com/mail/u/0/#search/${encodedQuery}`;
-        }
+        // Desktop Gmail search URL
+        redirectUrl = https://mail.google.com/mail/u/0/#search/${encodedQuery};
       }
-      
-      document.body.innerHTML = `
-        <p>Redirecting to Gmail ${searchType} for <strong>${query}</strong>...</p>
+      document.body.innerHTML = 
+        <p>Redirecting to Gmail search for <strong>${query}</strong>...</p>
         <p><a href="${redirectUrl}">Click here if not redirected</a></p>
-      `;
-      
+      ;
       setTimeout(() => {
         window.location.href = redirectUrl;
       }, 1000);
